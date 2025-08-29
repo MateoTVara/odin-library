@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  border: 1px solid black ;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+}
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  flex: 1;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0 3rem;
+}
+
+header > button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.5em 1.2em;
+  font-size: clamp(0.5rem, 2vw, 1.2rem);
+  border-radius: 0.5em;
+  min-width: clamp(3rem, 10vw, 10rem);
+  height: clamp(2.5rem, 5vh, 3rem);
+}
+
+button#delete-all {
+  margin-right: auto;
+}
+
+button#add {
+  margin-left: auto;
+}
+
+main {
+  flex: 6;
+  display: flex;
+  flex-direction: column;
+}
+
+main > section {
+  flex: 1;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, clamp(5rem, 20%, 12rem));
+  grid-auto-rows: auto;
+  row-gap: clamp(1rem, 2vh, 2rem);
+  column-gap: clamp(1rem, 3vw, 2rem);
+  justify-content: center;
+  align-items: start;
+  align-content: start;
+  padding: 1rem 2rem;
+}
+
+section > article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  width: clamp();
+  padding: 0.5rem 0;
+}
+
+section > article > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+footer {
+  flex: 1;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+footer p {
+  font-size: 1.2rem;
+}
+
+footer a {
+  text-decoration: none;
+  padding-bottom: 0;
+}
+
+footer img {
+  display: block;
+  height: 2rem;
+}
