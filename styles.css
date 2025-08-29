@@ -1,7 +1,11 @@
 * {
   margin: 0;
   box-sizing: border-box;
-  border: 1px solid black ;
+}
+
+body > *,
+article {
+  border: 1px solid black;
 }
 
 img, picture, video, canvas, svg {
@@ -12,6 +16,10 @@ body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+}
+
+header, footer {
+  min-height: 12dvh;
 }
 
 header {
@@ -72,7 +80,6 @@ section > article {
   align-items: center;
   gap: 1rem;
 
-  width: clamp();
   padding: 0.5rem 0;
 }
 
@@ -105,4 +112,53 @@ footer a {
 footer img {
   display: block;
   height: 2rem;
+}
+
+dialog {
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+}
+
+dialog > form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: start;
+  align-items: center;
+
+  padding: 2rem;
+  background-color: white;
+}
+
+dialog > form > div {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+dialog button {
+  padding: 0.3rem 0;
+  width: 100%;
+}
+
+dialog #read {
+  background-color: green;
+}
+
+#read.not-read {
+  background-color: red;
+}
+
+.card-grid .actions > button:first-child {
+  background-color: green;
+}
+
+.card-grid .actions > button:first-child.not-read {
+  background-color: red;
 }
