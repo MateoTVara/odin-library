@@ -7,7 +7,11 @@ const pagesInput = document.querySelector("#pages");
 const readButtonInput = document.querySelector("#read");
 const submitButton = document.querySelector("#submit");
 const form = document.querySelector("form");
+const deleteAllButton = document.querySelector("#delete-all");
 
+deleteAllButton.addEventListener("click", () => {
+  librarySection.replaceChildren();
+})
 
 addButton.addEventListener("click", () => {
   toggleDialogDiplay();
@@ -19,36 +23,33 @@ dialog.addEventListener("click", (e) => {
   }
 })
 
-function toggleDialogDiplay() {
-  if (dialog.style.display === "flex"){
-    dialog.style.display = "none";
-  } else {
-    dialog.style.display = "flex"
-  }
-}
-
 const library = [];
 
-function Book(author, title, pages, read){
+function Book(id, author, title, pages, read){
   if (!new.target) {
     throw Error("You must use the 'new' operator to call the constructor");
   }
+  this.id = id;
   this.author = author;
   this.title = title;
   this.pages = pages;
   this.read = read;
 }
 
-function addBookToLibrary(author, title, pages, read) {
-  const bookToAdd = new Book(author, title, pages, read)
+function addBookToLibrary(id, author, title, pages, read) {
+  const bookToAdd = new Book(id, author, title, pages, read)
   library.push(bookToAdd);
 }
 
+Book.prototype.toggleRead = function() {
+  this.read = !(this.read);
+}
+
 // Create placeholders
-addBookToLibrary("test1", "title1", 110, true);
-addBookToLibrary("test2", "title2", 120, false);
-addBookToLibrary("test3", "title3", 130, true);
-addBookToLibrary("test4", "title4", 140, false);
+addBookToLibrary(crypto.randomUUID(), "test1", "title1", 110, true);
+addBookToLibrary(crypto.randomUUID(), "test2", "title2", 120, false);
+addBookToLibrary(crypto.randomUUID(), "test3", "title3", 130, true);
+addBookToLibrary(crypto.randomUUID(), "test4", "title4", 140, false);
 
 function addBooksToLibrary() {
   // Not so sure if should comment this
@@ -58,6 +59,8 @@ function addBooksToLibrary() {
   // Create element that represents book
   for (let book of library) {
     const article = document.createElement("article");
+
+    article.setAttribute("data-user-id", book.id);
 
     const titleH2 = document.createElement("h2");
     titleH2.textContent = book.title;
@@ -76,10 +79,14 @@ function addBooksToLibrary() {
     if (!(book.read)) readButton.classList.add("not-read");
     readButton.addEventListener("click", () => {
       toggleBtnBgColor(readButton);
+      book.toggleRead();
     })
 
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "X"
+    deleteButton.addEventListener("click", () => {
+      librarySection.removeChild(article);
+    })
 
     buttonsDiv.appendChild(readButton);
     buttonsDiv.appendChild(deleteButton);
@@ -96,12 +103,13 @@ addBooksToLibrary();
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+  const id = crypto.randomUUID();
   const author = authorInput.value;
   const title = titleInput.value;
   const pages = pagesInput.value;
   const read = !(readButtonInput.classList.contains("not-read"));
 
-  addBookToLibrary(author, title, pages, read);
+  addBookToLibrary(id, author, title, pages, read);
   addBooksToLibrary();
   toggleDialogDiplay();
 
@@ -115,4 +123,12 @@ readButtonInput.addEventListener("click", () => {
 
 function toggleBtnBgColor(button){
   button.classList.toggle("not-read");
+}
+
+function toggleDialogDiplay() {
+  if (dialog.style.display === "flex"){
+    dialog.style.display = "none";
+  } else {
+    dialog.style.display = "flex"
+  }
 }
